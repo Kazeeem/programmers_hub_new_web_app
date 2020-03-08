@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class RegisterController extends Controller
 {
     /*
@@ -49,9 +50,16 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'date_of_birth' => ['required', 'string', 'max:255'],
+            'why_join' => ['required', 'string', 'max:255'],
+            'profession' => ['required', 'string', 'max:255'],
+            'profession_place' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
     }
 
@@ -64,8 +72,15 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'firstname' => $data['firstname'],
+            'gender' => $data['gender'],
             'email' => $data['email'],
+            'date_of_birth' => $data['date_of_birth'],
+            'why_join' => $data['why_join'],
+            'profession' => $data['profession'],
+            'profession_place' => $data['profession_place'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
     }

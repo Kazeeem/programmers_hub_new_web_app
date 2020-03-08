@@ -3,7 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class RedirectIfAuthenticated
 {
@@ -17,7 +21,8 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
+
+        if (Auth::check()) {
             return redirect('/home');
         }
 
